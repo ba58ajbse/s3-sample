@@ -16,7 +16,6 @@ jobs:
         run: |
           yarn install
           yarn build
-
       - name: sync s3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -27,7 +26,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "ap-northeast-1"
           SOURCE_DIR: "build"
-
       - name: invalidate
         uses: chetan/invalidate-cloudfront-action@master
         env:
