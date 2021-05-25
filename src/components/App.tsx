@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from '../assets/images/logo.svg'
 import '../assets/css/App.css'
 
 const App: React.FC = () => {
@@ -7,8 +6,6 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <h1>Deploy by GitHub Actions</h1>
-        <h3>Merge Test</h3>
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
