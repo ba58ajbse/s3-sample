@@ -6,8 +6,7 @@ const App: React.FC = () => {
   return (
     <Flex
       minHeight="100vh"
-      maxWidth="full"
-      align="center"
+      width="full"
       justifyContent="center"
       backgroundColor="#282c34"
     >
