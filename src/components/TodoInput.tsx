@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Box, Input, Button } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
+import styled from 'styled-components'
 
 const TodoInput: React.FC = () => {
   const [value, setValue] = useState('')
@@ -14,7 +15,7 @@ const TodoInput: React.FC = () => {
 
   return (
     <Box paddingTop="32px" maxW="880" m="0 auto">
-      <form onSubmit={(e) => addTodo(e)}>
+      <StyledForm onSubmit={(e) => addTodo(e)}>
         <Input
           type="text"
           width="640px"
@@ -31,9 +32,13 @@ const TodoInput: React.FC = () => {
         <Button type="submit">
           <AddIcon />
         </Button>
-      </form>
+      </StyledForm>
     </Box>
   )
 }
 
 export default TodoInput
+
+const StyledForm = styled.form`
+  text-align: center;
+`
