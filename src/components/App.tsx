@@ -1,22 +1,24 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/react'
+import styled from 'styled-components'
 import TodoInput from './TodoInput'
-import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
+import Header from './Header'
 
 const App: React.FC = () => {
   return (
     <AmplifyAuthenticator>
-      <AmplifySignOut />
-      <Flex
-        minHeight="100vh"
-        width="full"
-        justifyContent="center"
-        backgroundColor="#282c34"
-      >
+      <Container>
+        <Header />
         <TodoInput />
-      </Flex>
+      </Container>
     </AmplifyAuthenticator>
   )
 }
 
 export default App
+
+const Container = styled.div`
+  min-height: 100vh;
+  width: 100%;
+  background-color: #282c34;
+`
