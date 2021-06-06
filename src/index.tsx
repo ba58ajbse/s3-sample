@@ -4,6 +4,10 @@ import './assets/css/index.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import App from './components/App'
 import reportWebVitals from './reportWebVitals'
+import cognitoConfig from './cognitoConfig'
+import { Amplify } from 'aws-amplify'
+
+Amplify.configure(cognitoConfig)
 
 ReactDOM.render(
   <React.StrictMode>
