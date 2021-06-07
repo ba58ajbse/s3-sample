@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TodoInput from './TodoInput'
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
 import Header from './Header'
+import TodoList from './TodoList'
 
 const App: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       <Container>
         <Header />
         <TodoInput />
+        <TodoList />
       </Container>
     </AmplifyAuthenticator>
   )
