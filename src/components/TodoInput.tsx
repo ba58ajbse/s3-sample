@@ -14,7 +14,7 @@ const TodoInput: React.FC = () => {
   }
 
   return (
-    <Box paddingTop="32px" maxW="880" m="0 auto">
+    <Box maxW="880" m="0 auto 24px">
       <StyledForm onSubmit={(e) => addTodo(e)}>
         <Input
           type="text"

@@ -15,4 +15,5 @@ export default Header
 const StyledHeader = styled.header`
   height: 60px;
   width: 100%;
+  margin-bottom: 32px;
 `
