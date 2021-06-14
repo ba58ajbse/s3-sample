@@ -10,7 +10,7 @@ const TodoList: React.FC = () => {
 
   useEffect(() => {
     dispatch(getAllAsync())
-  }, [todoList])
+  }, [])
 
   return (
     <Box maxW="720" m="0 auto">

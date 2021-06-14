@@ -24,17 +24,19 @@ export const todoSlice = createSlice({
         },
       ]
     },
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      return [...state].filter((todo) => todo.id !== action.payload)
+    },
   },
 })
 
-export const { getAll, addTodo } = todoSlice.actions
+export const { getAll, addTodo, deleteTodo } = todoSlice.actions
 
 export const getAllAsync = (): AppThunk => async (dispatch) => {
   const todos = await axios
     .get(URL)
     .then((res) => res.data.body.Items)
     .catch((error) => console.log(error))
-  console.log({ todos })
 
   dispatch(getAll(todos))
 }
@@ -46,8 +48,19 @@ export const addTodoAsync =
       .post(URL, data)
       .then((res) => res.data.body)
       .catch((error) => console.log(error))
-    console.log({ todo })
+
     dispatch(addTodo(todo))
+  }
+
+export const deleteTodoAsync =
+  (id: string): AppThunk =>
+  async (dispatch) => {
+    const resId = await axios
+      .delete(URL, { params: { id: id } })
+      .then((res) => res.data.body.id)
+      .catch((error) => console.log(error))
+
+    dispatch(deleteTodo(resId))
   }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
