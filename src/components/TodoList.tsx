@@ -1,13 +1,17 @@
 import { Box, List } from '@chakra-ui/layout'
-import React from 'react'
+import React, { useEffect } from 'react'
 import TodoItem from './TodoItem'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectTodo, getAllAsync } from '../store/slices/todoSlice'
 
 const TodoList: React.FC = () => {
-  const todoList = [
-    { id: 0, todo: 'PHP' },
-    { id: 1, todo: 'JavaScript' },
-    { id: 2, todo: 'Rust' },
-  ]
+  const todoList = useSelector(selectTodo)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllAsync())
+  }, [todoList])
+
   return (
     <Box maxW="720" m="0 auto">
       <List p="0 20px 0 20px" color="white">

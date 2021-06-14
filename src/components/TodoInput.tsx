@@ -2,14 +2,25 @@ import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Box, Input, Button } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+import { addTodoAsync } from '../store/slices/todoSlice'
+import { TodoType } from '../interfaces/types'
 
 const TodoInput: React.FC = () => {
   const [value, setValue] = useState('')
+  const dispatch = useDispatch()
 
-  const addTodo = (e: FormEvent<HTMLFormElement>) => {
+  const addTodo = async (e: FormEvent<HTMLFormElement>) => {
     if (value === '') return
     e.preventDefault()
-    console.log(value)
+
+    const data: TodoType = {
+      id: Math.random().toString(36).slice(-8),
+      todo: value,
+      completed: false,
+    }
+
+    dispatch(addTodoAsync(data))
     setValue('')
   }
 
