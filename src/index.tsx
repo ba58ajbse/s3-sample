@@ -6,13 +6,17 @@ import App from './components/App'
 import reportWebVitals from './reportWebVitals'
 import cognitoConfig from './cognitoConfig'
 import { Amplify } from 'aws-amplify'
+import { store } from './store/store'
+import { Provider } from 'react-redux'
 
 Amplify.configure(cognitoConfig)
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')

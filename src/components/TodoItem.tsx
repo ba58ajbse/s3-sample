@@ -1,12 +1,10 @@
 import React from 'react'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { Checkbox, ListItem } from '@chakra-ui/react'
+import { TodoType } from '../interfaces/types'
 
 type PropType = {
-  todoItem: {
-    id: number
-    todo: string
-  }
+  todoItem: TodoType
 }
 const TodoItem: React.FC<PropType> = ({ todoItem }) => {
   return (
