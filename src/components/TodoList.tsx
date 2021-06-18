@@ -19,7 +19,9 @@ const TodoList: React.FC = () => {
   return (
     <Box maxW="720" m="0 auto">
       <List p="0 20px 0 20px" color="white">
-        {todoList && todoList.map((todo) => <TodoItem key={todo.id} todoItem={todo} />)}
+        {todoList &&
+          todoList.length > 0 &&
+          todoList.map((todo) => <TodoItem key={todo.id} todoItem={todo} />)}
       </List>
     </Box>
   )
