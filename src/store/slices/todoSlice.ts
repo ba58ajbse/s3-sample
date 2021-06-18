@@ -6,10 +6,7 @@ import { TodoType } from '../../interfaces/types'
 const URL = process.env.REACT_APP_DB_URL as string
 
 const initialState: TodoType[] = []
-type UpdateType = {
-  id: string
-  completed: boolean
-}
+
 export const todoSlice = createSlice({
   name: 'todo',
   initialState,
@@ -32,7 +29,7 @@ export const todoSlice = createSlice({
     deleteTodo: (state, action: PayloadAction<string>) => {
       return [...state].filter((todo) => todo.id !== action.payload)
     },
-    updateTodo: (state, action: PayloadAction<UpdateType>) => {
+    updateTodo: (state, action: PayloadAction<Pick<TodoType, 'id' | 'completed'>>) => {
       return [...state].map((todo) => {
         if (todo.id !== action.payload.id) return todo
         return {
