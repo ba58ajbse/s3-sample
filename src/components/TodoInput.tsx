@@ -2,13 +2,15 @@ import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Box, Input, Button } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addTodoAsync } from '../store/slices/todoSlice'
+import { selectUser } from '../store/slices/userSlice'
 import { TodoType } from '../interfaces/types'
 
 const TodoInput: React.FC = () => {
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
+  const { token } = useSelector(selectUser)
 
   const addTodo = async (e: FormEvent<HTMLFormElement>) => {
     if (value === '') return
@@ -20,7 +22,7 @@ const TodoInput: React.FC = () => {
       completed: false,
     }
 
-    dispatch(addTodoAsync(data))
+    dispatch(addTodoAsync(data, token))
     setValue('')
   }
 
@@ -36,9 +38,7 @@ const TodoInput: React.FC = () => {
           size="lg"
           marginRight="12px"
           value={value}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setValue(e.target.value)
-          }
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
         />
         <Button type="submit">
           <AddIcon />

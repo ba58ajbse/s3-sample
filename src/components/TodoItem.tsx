@@ -16,11 +16,11 @@ const TodoItem: React.FC<PropType> = ({ todoItem }) => {
   const { token } = useSelector(selectUser)
 
   const deleteTodo = (id: string) => {
-    dispatch(deleteTodoAsync(id))
+    dispatch(deleteTodoAsync(id, token))
   }
 
   const toggleTodoChecked = (id: string, completed: boolean) => {
-    dispatch(updateTodoAsync(id, completed))
+    dispatch(updateTodoAsync(id, completed, token))
   }
 
   return (

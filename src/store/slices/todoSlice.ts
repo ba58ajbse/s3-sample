@@ -46,20 +46,22 @@ export const todoSlice = createSlice({
 
 export const { getAll, addTodo, deleteTodo, updateTodo } = todoSlice.actions
 
-export const getAllAsync = (): AppThunk => async (dispatch) => {
-  const todos = await axios
-    .get(URL)
-    .then((res) => res.data.body.Items)
-    .catch((error) => console.log(error))
+export const getAllAsync =
+  (token: string): AppThunk =>
+  async (dispatch) => {
+    const todos = await axios
+      .get(URL, { headers: { Authorization: token } })
+      .then((res) => res.data.body.Items)
+      .catch((error) => console.log(error))
 
-  dispatch(getAll(todos))
-}
+    dispatch(getAll(todos))
+  }
 
 export const addTodoAsync =
-  (data: TodoType): AppThunk =>
+  (data: TodoType, token: string): AppThunk =>
   async (dispatch) => {
     const todo = await axios
-      .post(URL, data)
+      .post(URL, data, { headers: { Authorization: token } })
       .then((res) => res.data.body)
       .catch((error) => console.log(error))
 
@@ -67,10 +69,10 @@ export const addTodoAsync =
   }
 
 export const deleteTodoAsync =
-  (id: string): AppThunk =>
+  (id: string, token: string): AppThunk =>
   async (dispatch) => {
     const resId = await axios
-      .delete(URL, { params: { id: id } })
+      .delete(URL, { params: { id: id }, headers: { Authorization: token } })
       .then((res) => res.data.body.id)
       .catch((error) => console.log(error))
 
@@ -78,10 +80,10 @@ export const deleteTodoAsync =
   }
 
 export const updateTodoAsync =
-  (id: string, completed: boolean): AppThunk =>
+  (id: string, completed: boolean, token: string): AppThunk =>
   async (dispatch) => {
     const res = await axios
-      .put(URL, { id: id, completed: !completed })
+      .put(URL, { id: id, completed: !completed }, { headers: { Authorization: token } })
       .then((res) => res.data.body)
       .catch((error) => console.log(error))
 
