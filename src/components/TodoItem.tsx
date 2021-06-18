@@ -1,16 +1,19 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { ListItem } from '@chakra-ui/react'
 import { TodoType } from '../interfaces/types'
 import { deleteTodoAsync, updateTodoAsync } from '../store/slices/todoSlice'
+import { selectUser } from '../store/slices/userSlice'
 import styled from 'styled-components'
 
 type PropType = {
   todoItem: TodoType
 }
+
 const TodoItem: React.FC<PropType> = ({ todoItem }) => {
   const dispatch = useDispatch()
+  const { token } = useSelector(selectUser)
 
   const deleteTodo = (id: string) => {
     dispatch(deleteTodoAsync(id))

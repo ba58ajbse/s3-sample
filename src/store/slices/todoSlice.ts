@@ -15,7 +15,9 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     getAll: (state, action: PayloadAction<TodoType[]>) => {
-      return [...state, ...action.payload]
+      return [...state, ...action.payload].filter((todo, i, self) => {
+        return self.findIndex((selfTodo) => selfTodo.id === todo.id) === i
+      })
     },
     addTodo: (state, action: PayloadAction<TodoType>) => {
       return [
