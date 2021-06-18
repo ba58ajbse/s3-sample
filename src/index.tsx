@@ -6,6 +6,7 @@ import App from './components/App'
 import reportWebVitals from './reportWebVitals'
 import cognitoConfig from './cognitoConfig'
 import { Amplify } from 'aws-amplify'
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
 import { store } from './store/store'
 import { Provider } from 'react-redux'
 
@@ -15,7 +16,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
       <Provider store={store}>
-        <App />
+        <AmplifyAuthenticator>
+          <App />
+        </AmplifyAuthenticator>
       </Provider>
     </ChakraProvider>
   </React.StrictMode>,

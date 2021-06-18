@@ -3,3 +3,10 @@ export type TodoType = {
   todo: string
   completed: boolean
 }
+
+export type UserInfoType = {
+  name: string
+  email: string
+  tel: string
+  token: string
+}

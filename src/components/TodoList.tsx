@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectTodo, getAllAsync } from '../store/slices/todoSlice'
 
 const TodoList: React.FC = () => {
-  const todoList = useSelector(selectTodo)
   const dispatch = useDispatch()
+  const todoList = useSelector(selectTodo)
 
   useEffect(() => {
     dispatch(getAllAsync())
