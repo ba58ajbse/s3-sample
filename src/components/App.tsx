@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import TodoInput from './TodoInput'
-import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
 import Header from './Header'
 import TodoList from './TodoList'
+import { setUserInfoAsync } from '../store/slices/userSlice'
+import { useDispatch } from 'react-redux'
 
 const App: React.FC = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setUserInfoAsync())
+  }, [])
+
   return (
-    <AmplifyAuthenticator>
-      <Container>
-        <Header />
-        <TodoInput />
-        <TodoList />
-      </Container>
-    </AmplifyAuthenticator>
+    <Container>
+      <Header />
+      <TodoInput />
+      <TodoList />
+    </Container>
   )
 }
 
