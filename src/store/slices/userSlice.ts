@@ -3,7 +3,7 @@ import { AppThunk, RootState } from '../store'
 import { Auth } from 'aws-amplify'
 import { UserInfoType } from '../../interfaces/types'
 
-const initialState: UserInfoType = { name: '', email: '', tel: '' }
+const initialState: UserInfoType = { name: '', email: '', tel: '', token: '' }
 
 export const userSlice = createSlice({
   name: 'user',
@@ -15,6 +15,7 @@ export const userSlice = createSlice({
         name: action.payload.name,
         email: action.payload.email,
         tel: action.payload.tel,
+        token: action.payload.token,
       }
     },
   },
@@ -27,8 +28,9 @@ export const setUserInfoAsync = (): AppThunk => async (dispatch) => {
   const name = userInfo.username
   const email = userInfo.attributes.email
   const tel = userInfo.attributes.phone_number
+  const token = userInfo.signInUserSession.idToken.jwtToken
 
-  dispatch(setUserInfo({ name, email, tel }))
+  dispatch(setUserInfo({ name, email, tel, token }))
 }
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const selectUser = (state: RootState) => state.user
