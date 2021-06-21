@@ -8,5 +8,4 @@ export type UserInfoType = {
   name: string
   email: string
   tel: string
-  token: string
 }
