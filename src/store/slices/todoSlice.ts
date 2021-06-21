@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { AppThunk, RootState } from '../store'
 import { TodoType } from '../../interfaces/types'
-import { Auth } from 'aws-amplify'
 
 const URL = process.env.REACT_APP_DB_URL as string
 
@@ -44,20 +43,20 @@ export const todoSlice = createSlice({
 
 export const { getAll, addTodo, deleteTodo, updateTodo } = todoSlice.actions
 
-export const getAllAsync = (): AppThunk => async (dispatch) => {
-  const token = await getJwt()
-  const todos = await axios
-    .get(URL, { headers: { Authorization: token } })
-    .then((res) => res.data.body.Items)
-    .catch((error) => console.log(error))
+export const getAllAsync =
+  (token: string): AppThunk =>
+  async (dispatch) => {
+    const todos = await axios
+      .get(URL, { headers: { Authorization: token } })
+      .then((res) => res.data.body.Items)
+      .catch((error) => console.log(error))
 
-  dispatch(getAll(todos))
-}
+    dispatch(getAll(todos))
+  }
 
 export const addTodoAsync =
-  (data: TodoType): AppThunk =>
+  (data: TodoType, token: string): AppThunk =>
   async (dispatch) => {
-    const token = await getJwt()
     const todo = await axios
       .post(URL, data, { headers: { Authorization: token } })
       .then((res) => res.data.body)
@@ -67,9 +66,8 @@ export const addTodoAsync =
   }
 
 export const deleteTodoAsync =
-  (id: string): AppThunk =>
+  (id: string, token: string): AppThunk =>
   async (dispatch) => {
-    const token = await getJwt()
     const resId = await axios
       .delete(URL, { params: { id: id }, headers: { Authorization: token } })
       .then((res) => res.data.body.id)
@@ -79,9 +77,8 @@ export const deleteTodoAsync =
   }
 
 export const updateTodoAsync =
-  (id: string, completed: boolean): AppThunk =>
+  (id: string, completed: boolean, token: string): AppThunk =>
   async (dispatch) => {
-    const token = await getJwt()
     const res = await axios
       .put(URL, { id: id, completed: !completed }, { headers: { Authorization: token } })
       .then((res) => res.data.body)
@@ -93,12 +90,4 @@ export const updateTodoAsync =
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const selectTodo = (state: RootState) => state.todo
 
-const getJwt = async () => {
-  const jwtToken = await Auth.currentSession()
-    .then((session) => session.getIdToken())
-    .then((idToken) => idToken.getJwtToken())
-    .catch((error) => console.log(error))
-
-  return jwtToken
-}
 export default todoSlice.reducer
