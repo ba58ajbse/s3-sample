@@ -8,13 +8,13 @@ import { selectUser } from '../store/slices/userSlice'
 const TodoList: React.FC = () => {
   const dispatch = useDispatch()
   const todoList = useSelector(selectTodo)
-  const { token } = useSelector(selectUser)
+  const user = useSelector(selectUser)
 
   useEffect(() => {
-    if (token) {
-      dispatch(getAllAsync(token))
+    if (user) {
+      dispatch(getAllAsync())
     }
-  }, [token])
+  }, [user])
 
   return (
     <Box maxW="720" m="0 auto">
