@@ -19,8 +19,8 @@ const TodoItem: React.FC<PropType> = ({ todoItem }) => {
     dispatch(deleteTodoAsync(id, token))
   }
 
-  const toggleTodoChecked = (id: string, completed: boolean) => {
-    dispatch(updateTodoAsync(id, completed, token))
+  const toggleTodoChecked = (id: string, todo: string, completed: boolean) => {
+    dispatch(updateTodoAsync(id, todo, completed, token))
   }
 
   return (
@@ -29,7 +29,7 @@ const TodoItem: React.FC<PropType> = ({ todoItem }) => {
         id={todoItem.id}
         type="checkbox"
         checked={todoItem.completed}
-        onChange={() => toggleTodoChecked(todoItem.id, todoItem.completed)}
+        onChange={() => toggleTodoChecked(todoItem.id, todoItem.todo, todoItem.completed)}
       />
       <StyledLabel htmlFor={todoItem.id} completed={todoItem.completed}>
         {todoItem.todo}
