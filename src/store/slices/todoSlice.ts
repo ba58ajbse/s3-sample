@@ -3,7 +3,10 @@ import axios from 'axios'
 import { AppThunk, RootState } from '../store'
 import { TodoType } from '../../interfaces/types'
 
-const URL = process.env.REACT_APP_DB_URL as string
+const URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3030/dev/todos/'
+    : (process.env.REACT_APP_DB_URL as string)
 
 const initialState: TodoType[] = []
 
@@ -48,7 +51,7 @@ export const getAllAsync =
   async (dispatch) => {
     const todos = await axios
       .get(URL, { headers: { Authorization: token } })
-      .then((res) => res.data.body.Items)
+      .then((res) => res.data.todoList)
       .catch((error) => console.log(error))
 
     dispatch(getAll(todos))
@@ -59,7 +62,7 @@ export const addTodoAsync =
   async (dispatch) => {
     const todo = await axios
       .post(URL, data, { headers: { Authorization: token } })
-      .then((res) => res.data.body)
+      .then((res) => res.data)
       .catch((error) => console.log(error))
 
     dispatch(addTodo(todo))
@@ -69,19 +72,19 @@ export const deleteTodoAsync =
   (id: string, token: string): AppThunk =>
   async (dispatch) => {
     const resId = await axios
-      .delete(URL, { params: { id: id }, headers: { Authorization: token } })
-      .then((res) => res.data.body.id)
+      .delete(`${URL}${id}`, { headers: { Authorization: token } })
+      .then((res) => res.data.id)
       .catch((error) => console.log(error))
 
     dispatch(deleteTodo(resId))
   }
 
 export const updateTodoAsync =
-  (id: string, completed: boolean, token: string): AppThunk =>
+  (id: string, todo: string, completed: boolean, token: string): AppThunk =>
   async (dispatch) => {
     const res = await axios
-      .put(URL, { id: id, completed: !completed }, { headers: { Authorization: token } })
-      .then((res) => res.data.body)
+      .patch(`${URL}${id}`, { todo, completed: !completed }, { headers: { Authorization: token } })
+      .then((res) => res.data)
       .catch((error) => console.log(error))
 
     dispatch(updateTodo({ id: res.id, completed: res.completed }))
