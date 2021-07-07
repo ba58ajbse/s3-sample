@@ -1,5 +1,5 @@
-import { Box, List } from '@chakra-ui/layout'
 import React, { useEffect } from 'react'
+import { Box, List } from '@chakra-ui/layout'
 import TodoItem from './TodoItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectTodo, getAllAsync } from '../store/slices/todoSlice'
