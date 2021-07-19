@@ -5,8 +5,8 @@ export type TodoType = {
 }
 
 export type UserInfoType = {
+  id: string
   name: string
   email: string
   tel: string
-  token: string
 }

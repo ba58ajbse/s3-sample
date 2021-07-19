@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { AppThunk, RootState } from '../store'
 import { TodoType } from '../../interfaces/types'
+import { Auth } from 'aws-amplify'
 
 const URL =
   process.env.NODE_ENV === 'development'
@@ -89,6 +90,13 @@ export const updateTodoAsync =
 
     dispatch(updateTodo({ id: res.id, completed: res.completed }))
   }
+
+const getToken = async () => {
+  const session = await Auth.currentSession()
+  const token = session.getIdToken().getJwtToken()
+
+  return token
+}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const selectTodo = (state: RootState) => state.todo
